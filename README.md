@@ -1,5 +1,6 @@
 # marklogic-kubernetes
 Deploying a MarkLogic StatefulSet in Kubernetes with an NGINX ingress/load balancer
+
 Uses Docker image: `dubblebee/k8s-marklogic:ml-v1`
 
 
