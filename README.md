@@ -1,6 +1,8 @@
 # marklogic-kubernetes
 Deploying a MarkLogic cluster in Kubernetes
 
+Uses Docker image: dubblebee/k8s-marklogic:ml-v1
+
 Based on this guide by Bill Miller: https://www.marklogic.com/blog/docker-deploy-kubernetes/ 
 
 ### With the following changes:
