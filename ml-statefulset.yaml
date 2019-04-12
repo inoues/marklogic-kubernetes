@@ -42,6 +42,10 @@ spec:
           volumeMounts:
             - name: ml-data
               mountPath: /var/opt/MarkLogic
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1Gi
       imagePullSecrets:
       - name: registry-secret
   volumeClaimTemplates:
