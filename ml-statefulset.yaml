@@ -18,7 +18,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: marklogic
-          image: dubblebee/k8s-marklogic:ml-v1
+          image: dubblebee/k8s-marklogic:latest
           imagePullPolicy: Always
           command: ["/opt/entry-point.sh"]
           ports:
