@@ -7,7 +7,7 @@ metadata:
   labels:
     app: marklogic
   annotations:
-    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+    #service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
 spec:
   clusterIP: None
   selector:
