@@ -4,7 +4,7 @@
 # MarkLogic nodes and keeping service running
 ####################################################################
 CONFIGURATION_FILE_LOCATION='/opt/mlconfig.sh'
-HOST_NAME=`hostname`
+HOST_NAME=`hostname -f`
 # SIGTERM-handler
 function term_handler {
   echo "Shutting down MarkLogic instance..."
@@ -20,7 +20,7 @@ trap term_handler SIGTERM SIGINT
 if [ ! -z "$2" ]; then
   CONFIGURATION_FILE_LOCATION=$2
 fi
-if [[ "${HOST_NAME}" == "marklogic-0"* ]]; then
+if [[ "${HOST_NAME}" == "marklogic-0.ml-service.marklogic.svc.cluster.local"* ]]; then
   echo "Setting up Master Node"
   ./setup-master.sh $CONFIGURATION_FILE_LOCATION
 else

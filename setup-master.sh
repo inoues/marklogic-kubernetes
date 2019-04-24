@@ -5,7 +5,7 @@
 ####################################################################
 CONFIG_FILE="${1}"
 ######################################################################
-BOOTSTRAP_HOST=`hostname`
+BOOTSTRAP_HOST=`hostname -f`
 CURL="curl -s -S"
 SKIP=0
 RETRY_INTERVAL=5

@@ -3,7 +3,7 @@
 # This script will join a MarkLogic server to a cluster
 # running inside a docker container
 ####################################################################
-JOINING_HOST=`hostname`
+JOINING_HOST=`hostname -f`
 BOOTSTRAP_HOST="$1"
 CONFIG_FILE="${2}"
 SKIP=0
