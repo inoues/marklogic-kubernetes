@@ -44,7 +44,7 @@ spec:
               mountPath: /var/opt/MarkLogic
           resources:
             requests:
-              cpu: 500m
+              cpu: 1
               memory: 1Gi
       imagePullSecrets:
       - name: registry-secret
