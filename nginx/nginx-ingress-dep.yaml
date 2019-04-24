@@ -31,5 +31,9 @@ spec:
           hostPort: 8001
         - containerPort: 8002
           hostPort: 8002
+        resources:
+          requests:
+            cpu: 1
+            memory: 1Gi
       imagePullSecrets:
       - name: registry-secret
