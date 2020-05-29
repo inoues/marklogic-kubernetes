@@ -16,7 +16,7 @@ ENV MARKLOGIC_MLCMD_PID_FILE /var/run/mlcmd.pid
 ENV MARKLOGIC_UMASK 022
 ENV PATH $PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/MarkLogic/mlcmd/bin
 #MarkLogic RPM package to install
-ARG MARKLOGIC_RPM=MarkLogic-9.0-9.x86_64.rpm
+ARG MARKLOGIC_RPM=MarkLogic-10.0-4.x86_64.rpm
 #Copy MarkLogic RPM to to image
 COPY ${MARKLOGIC_RPM} /tmp/${MARKLOGIC_RPM}
 #Copy configuration file to image. Config file is used by initialization scripts
