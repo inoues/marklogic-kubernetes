@@ -7,7 +7,7 @@ spec:
     matchLabels:
       app: marklogic
   serviceName: "ml-service"
-  replicas: 3
+  replicas: 2
   template:
     metadata:
       labels:
@@ -18,7 +18,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: marklogic
-          image: dubblebee/k8s-marklogic:latest
+          image: psychobmx/marklogic:v1
           imagePullPolicy: Always
           command: ["/opt/entry-point.sh"]
           ports:
