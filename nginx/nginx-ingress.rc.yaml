@@ -14,7 +14,7 @@ spec:
         app: nginx-ingress
     spec:
       containers:
-      - image: dubblebee/k8s-marklogic:ml-nginx
+      - image: psychobmx/nginx-ml:v1
         imagePullPolicy: Always
         name: nginx-ingress
         ports:
