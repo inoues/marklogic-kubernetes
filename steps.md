@@ -50,9 +50,42 @@ like
 ## Creating the Registry Authentication Secret
 Use Git bash
 ```
-openssl base64 -in C:/Users/ユーザー名/.docker/config.json -out C:/Users/ユーザー名/.docker/config_base64.txt
+openssl base64 -in C:/Users/"username"/.docker/config.json -out C:/Users/"username"/.docker/config_base64.txt
 ```
 registry-secret.yaml  
 copy the content inside the config_base64.txt file and paste it as the value for .dockerconfigjson
 
-## MarkLogic Service
+## NGINX
+1. load balancing between the nodes in the cluster from outside the Kubernetes internal network
+2. Allows us to access each node individually
+  
+```
+cd nginx
+docker build -t <your registry/your image name>:<your image tag> .
+docker push <your registry/your image name>:<your image tag>
+```
+like  
+```
+docker build -t psychobmx/nginx-ml:v1 .
+docker push psychobmx/nginx-ml:v1
+````
+
+### NGINX Replication Controller
+nginx-ingress.rc.yml  
+image  
+`<your registry/your image name>:<image tag>`  
+like 
+```
+    spec:
+      containers:
+      - image: psychobmx/nginx-ml:v1
+        imagePullPolicy: Always
+        name: nginx-ingress
+```
+
+## Starting up the Cluster
+`kubectl create namespace marklogic`  
+`kubectl create -f .\registry-secret.yaml`    
+`kubectl create -f .\marklogic-service.yaml`  
+`kubectl create -f .\ml-statefulset.yaml`    
+`kubectl create -f .\nginx\nginx-ingress.rc.yaml`    
