@@ -2,20 +2,13 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: dst-local-pv3
+  labels:
+    type: local
 spec:
-  capacity:
-    storage: 10Gi
-  accessModes:
-  - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
-  local:
-    path: /data/vol1
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - kuben503.back.int.bc.local
+  capacity:
+    storage: 12Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/inoues/k8s-pv/pv-3"
