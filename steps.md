@@ -85,29 +85,29 @@ like
 
 ## Starting up the Cluster
 ### Create PV
-`kubectl apply -f .\persistent-volumes\local-PersistantVolume.yaml`  
-`kubectl apply -f .\persistent-volumes\local-PersistantVolume2.yaml`  
-`kubectl apply -f .\persistent-volumes\local-PersistantVolume3.yaml`  
+`kubectl create -f ./persistent-volumes/local-PersistantVolume1.yaml`  
+`kubectl create -f ./persistent-volumes/local-PersistantVolume3.yaml`  
+`kubectl create -f ./persistent-volumes/local-PersistantVolume3.yaml`  
 `kubectl get pv`  
 ```
-NAME            CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM                         STORAGECLASS    REASON   AGE
-dst-local-pv    20Gi       RWO            Retain           Bound       default/ml-data-marklogic-0   local-storage            31s
-dst-local-pv2   20Gi       RWO            Retain           Available                                 local-storage            22s
-dst-local-pv3   20Gi       RWO            Retain           Available                                 local-storage            16s
+NAME            CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS    REASON   AGE
+dst-local-pv    12Gi       RWO            Retain           Available           local-storage            114s
+dst-local-pv2   12Gi       RWO            Retain           Available           local-storage            103s
+dst-local-pv3   12Gi       RWO            Retain           Available           local-storage            98s                               local-storage            16s
 ```
-`kubectl apply -f .\persistent-volumes\local-StorageClass.yaml`  
+`kubectl apply -f ./persistent-volumes/local-StorageClass.yaml`  
 `kubectl get sc`
 ```
 NAME                 PROVISIONER                    AGE
-hostpath (default)   docker.io/hostpath             11h
-local-storage        kubernetes.io/no-provisioner   83s
+hostpath (default)   docker.io/hostpath             3m51s
+local-storage        kubernetes.io/no-provisioner   10s
 ```
 
 `kubectl create namespace marklogic`  
-`kubectl create -f .\registry-secret.yaml`    
-`kubectl create -f .\marklogic-service.yaml`  
-`kubectl create -f .\ml-statefulset.yaml`    
-`kubectl create -f .\nginx\nginx-ingress.rc.yaml`    
+`kubectl create -f ./registry-secret.yaml`    
+`kubectl create -f ./marklogic-service.yaml`  
+`kubectl create -f ./ml-statefulset.yaml`    
+`kubectl create -f ./nginx/nginx-ingress.rc.yaml`    
 
 ? erro  
 
@@ -120,51 +120,18 @@ default       nginx-ingress-rc-8bqgb                   0/1     CrashLoopBackOff 
 ```
 `kubectl describe pods marklogic-0`  
 ```
-Name:           marklogic-0
-Namespace:      default
-Priority:       0
-Node:           <none>
-Labels:         app=marklogic
-                controller-revision-hash=marklogic-5f699f9865
-                statefulset.kubernetes.io/pod-name=marklogic-0
-Annotations:    <none>
-Status:         Pending
-IP:
-IPs:            <none>
-Controlled By:  StatefulSet/marklogic
-Containers:
-  marklogic:
-    Image:       psychobmx/marklogic:v1
-    Ports:       7997/TCP, 7998/TCP, 7999/TCP, 8000/TCP, 8001/TCP, 8002/TCP
-    Host Ports:  0/TCP, 0/TCP, 0/TCP, 0/TCP, 0/TCP, 0/TCP
-    Command:
-      /opt/entry-point.sh
-    Requests:
-      cpu:        1
-      memory:     1Gi
-    Environment:  <none>
-    Mounts:
-      /var/opt/MarkLogic from ml-data (rw)
-      /var/run/secrets/kubernetes.io/serviceaccount from default-token-gwjx4 (ro)
-Conditions:
-  Type           Status
-  PodScheduled   False
-Volumes:
-  ml-data:
-    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
-    ClaimName:  ml-data-marklogic-0
-    ReadOnly:   false
-  default-token-gwjx4:
-    Type:        Secret (a volume populated by a Secret)
-    SecretName:  default-token-gwjx4
-    Optional:    false
-QoS Class:       Burstable
-Node-Selectors:  <none>
-Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
-                 node.kubernetes.io/unreachable:NoExecute for 300s
 Events:
-  Type     Reason            Age                  From               Message
-  ----     ------            ----                 ----               -------
-  Warning  FailedScheduling  3m3s (x88 over 11h)  default-scheduler  pod has unbound immediate PersistentVolumeClaims
+  Type     Reason     Age                    From                     Message
+  ----     ------     ----                   ----                     -------
+  Normal   Scheduled  3m2s                   default-scheduler        Successfully assigned default/marklogic-0 to docker-desktop
+  Normal   Pulled     2m11s (x4 over 2m58s)  kubelet, docker-desktop  Successfully pulled image "psychobmx/marklogic:v1"
+  Normal   Created    2m11s (x4 over 2m58s)  kubelet, docker-desktop  Created container marklogic
+  Normal   Started    2m11s (x4 over 2m58s)  kubelet, docker-desktop  Started container marklogic
+  Warning  BackOff    92s (x8 over 2m54s)    kubelet, docker-desktop  Back-off restarting failed container
+  Normal   Pulling    78s (x5 over 3m1s)     kubelet, docker-desktop  Pulling image "psychobmx/marklogic:v1"
 ```
+
+`kubectl -n default logs marklogic-0`  
+
+`standard_init_linux.go:211: exec user process caused "no such file or directory"`
  

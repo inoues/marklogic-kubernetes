@@ -7,7 +7,7 @@ spec:
     matchLabels:
       app: marklogic
   serviceName: "ml-service"
-  replicas: 3
+  replicas: 1
   template:
     metadata:
       labels:
@@ -44,7 +44,7 @@ spec:
               mountPath: /var/opt/MarkLogic
           resources:
             requests:
-              cpu: 1
+              cpu: 500m
               memory: 1Gi
       imagePullSecrets:
       - name: registry-secret
